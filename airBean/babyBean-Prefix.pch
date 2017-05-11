@@ -1,0 +1,46 @@
+//
+//  babyBean-Prefix.pch
+//  airBean
+//
+//  Created by predator on 17/5/6.
+//  Copyright © 2017年 predator. All rights reserved.
+//
+
+#ifndef babyBean_Prefix_pch
+#define babyBean_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+//友盟统计
+#define kUmeng_AppKey @"590dbb5df29d986a16001f31"
+#define kUmeng_Event_Connect_Device @"Connect_Device"
+
+
+//信鸽推送
+#define kXGPush_Id 2200258271
+#define kXGPush_Key @"ITBS7J2456KB"
+
+//蓝牙设备名称
+#define BLE_NAME @"HN_PM"
+
+//服务以及特征uuid
+#define serviceUUID @"FFF1"
+#define characteristicUUID @"FFFA"
+#define characteristicEnableUUID @"F000AA22-0451-4000-B000-000000000000"
+
+//界面尺寸
+#define kScreen_Bounds [UIScreen mainScreen].bounds
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+
+//高德定位appkey
+#define mapServiceKey @"0286ce280cedfca82326f4cceb611bf0"
+
+//和风天气api
+#define heFengAPI @"https://free-api.heweather.com/v5/weather"
+#define imagePath2 @"http://files.heweather.com/cond_icon/"
+#define heFengKey @"edeabc98d08844fd801d4b9b967b6c48"
+#endif /* babyBean_Prefix_pch */
+

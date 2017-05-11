@@ -7,6 +7,18 @@
 //
 
 #import "AppDelegate.h"
+#import "AFNetworking.h"
+#import "AFNetworkActivityIndicatorManager.h"
+#import <UMengSocial/UMSocial.h>
+#import <UMengSocial/UMSocialWechatHandler.h>
+#import <UMengSocial/UMSocialQQHandler.h>
+#import "AFNetworking.h"
+#import "MobClick.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import "SVProgressHUD.h"
+#import "UIImageView+WebCache.h"
+
 
 @interface AppDelegate ()
 
@@ -14,11 +26,33 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //网络
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    //sd加载的数据类型
+    [[[SDWebImageManager sharedManager] imageDownloader] setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    
+    
+    [MobClick startWithAppkey:kUmeng_AppKey reportPolicy:BATCH channelId:nil];
+    [[AMapServices sharedServices] setEnableHTTPS:YES];
+    [AMapServices sharedServices].apiKey =mapServiceKey;
     return YES;
 }
+
+
+- (void)completionStartAnimationWithOptions:(NSDictionary *)launchOptions{
+   
+    //    UMENG 统计
+    [MobClick startWithAppkey:kUmeng_AppKey reportPolicy:BATCH channelId:nil];
+    
+    
+    
+    }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
