@@ -18,7 +18,7 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 #import "SVProgressHUD.h"
 #import "UIImageView+WebCache.h"
-
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -40,6 +40,15 @@
     [MobClick startWithAppkey:kUmeng_AppKey reportPolicy:BATCH channelId:nil];
     [[AMapServices sharedServices] setEnableHTTPS:YES];
     [AMapServices sharedServices].apiKey =mapServiceKey;
+    
+//    ViewController *vc = [[ViewController alloc]init];
+//    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
+//   
+//    //设置NavigationBar背景颜色
+////     [[UINavigationBar appearance] setBarTintColor:[UIColor blueColor]];
+////    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    self.window.rootViewController = navi;
+//    [self.window makeKeyAndVisible];
     return YES;
 }
 

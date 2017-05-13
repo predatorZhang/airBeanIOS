@@ -136,15 +136,22 @@
 }
 
 #pragma mark - 初始化ui
+-(void)scanDev:(id)tap{
+    baby.scanForPeripherals().connectToPeripherals().begin().stop(10);
+    [SVProgressHUD show];
+}
 
 -(void) initUI{
+//    
+//    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(scanDev:)];
+//    self.navigationItem.rightBarButtonItem = myButton;
 
     _bgImageView = [[UIImageView alloc] initWithFrame:kScreen_Bounds];
     _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_bgImageView];
 
     //初始化背景图片
-    UIImage *bgImage =  [UIImage imageNamed:@"bg_2"];
+    UIImage *bgImage =  [UIImage imageNamed:@"bg_hch0"];
     CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
     
     if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
@@ -239,22 +246,9 @@
         
     }];
     
-    //是否连接上的图片
-//    _connImageView=[UIImageView new];
-//    _connImageView.contentMode=UIViewContentModeScaleAspectFill;
-//    UIImage* connectImage=[UIImage imageNamed:@"dv_disconnected"];
-//    _connImageView.image = connectImage;
-//    [_connImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(_midCircle.mas_centerY).offset(kScreen_Width/4+20);
-//        make.centerX.equalTo(self.view.mas_centerX);
-//        make.size.mas_equalTo(CGSizeMake(20, 20));
-//    }];
-//    [self.view addSubview:_connImageView];
-
     
-    
-    UIView *cellView = [[UIView alloc] initWithFrame:CGRectMake(kScreen_Width-50, 30, 30, 40)];
-    [self.view addSubview:cellView];
+    _cellView = [[UIView alloc] initWithFrame:CGRectMake(kScreen_Width-50, 30, 30, 40)];
+    [self.view addSubview:_cellView];
 
     //电池电量
     _cellLabel = [[UILabel alloc] init];
@@ -263,29 +257,29 @@
     _cellLabel.font = [UIFont systemFontOfSize:15];
     _cellLabel.textColor = [UIColor whiteColor];
     _cellLabel.textAlignment = NSTextAlignmentCenter;
-    _cellLabel.text = [NSString stringWithFormat:@"%d%%",100];
-    [cellView addSubview:_cellLabel];
+    _cellLabel.text = [NSString stringWithFormat:@"%@%%",@"--"];
+    [_cellView addSubview:_cellLabel];
     [_cellLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        // make.right.equalTo(self.view.mas_right);
-        make.top.mas_equalTo(cellView.mas_top);
-        make.right.equalTo(cellView.mas_right);
+        make.top.mas_equalTo(_cellView.mas_top);
+        make.right.equalTo(_cellView.mas_right);
     }];
 
     _cellImageView=[UIImageView new];
-    UIImage* cellImage=[UIImage imageNamed:@"ic_battery_low"];
-    CGSize cellImageSize = cellImage.size,cellViewSize = cellView.frame.size;
+    UIImage* cellImage=[UIImage imageNamed:@"ic_battery_full"];
+    CGSize cellImageSize = cellImage.size,cellViewSize = _cellView.frame.size;
     if (cellImageSize.width > cellViewSize.width/2 && cellImageSize.height > cellViewSize.height) {
         CGSize size = CGSizeMake(cellViewSize.width/2, cellViewSize.height);
         cellImage = [cellImage scaleToSize:size usingMode:NYXResizeModeAspectFill];
     }
     _cellImageView.image = cellImage;
-    [cellView addSubview:_cellImageView];
+    [_cellView addSubview:_cellImageView];
     [_cellImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         //make..equalTo(_midCircle.mas_centerY);
         make.right.equalTo(_cellLabel.mas_left);
         make.centerY.equalTo(_cellLabel.mas_centerY);
     }];
-    [self.view addSubview:cellView];
+    [self.view addSubview:_cellView];
 
     //底部半透明区域
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 2*(kScreen_Height/3),
@@ -293,6 +287,20 @@
     bottomView.backgroundColor=[UIColor colorWithRed:1/123 green:1/23 blue:1/233 alpha:0.3];
     //[bottomView setBackgroundColor:[UIColor colorWithRed:0.0 green:1.0 blue:1.0 alpha:0.5]];
     [self.view addSubview:bottomView];
+    
+    _connImageView=[UIImageView new];
+    _connImageView.userInteractionEnabled = YES;
+    _connImageView.contentMode=UIViewContentModeScaleAspectFill;
+    UIImage* connectImage=[UIImage imageNamed:@"dv_disconnected"];
+    _connImageView.image = connectImage;
+    [self.view addSubview:_connImageView];
+    [_connImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(bottomView.mas_top).offset(-40);
+            make.centerX.equalTo(self.view.mas_centerX);
+            make.size.mas_equalTo(CGSizeMake(30, 30));
+        }];
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(scanDev:)];
+    [_connImageView addGestureRecognizer:singleTap];
     
     //天气图片按钮
     _weatherCircle=[AMPAvatarView new];
@@ -481,6 +489,30 @@
     return number;
 }
 
+-(void) changeBackgroundByHoho:(float)hcho by:(float)pm25{
+    UIImage *bgImage =nil;
+    if(hcho>0.5){
+        bgImage =  [UIImage imageNamed:@"bg_hch0"];
+        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
+        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
+            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
+        }
+        
+    }else if(pm25>115){
+        bgImage =  [UIImage imageNamed:@"bg_pm25"];
+        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
+        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
+            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
+        }
+    }else{
+        bgImage =  [UIImage imageNamed:@"bg_2"];
+        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
+        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
+            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
+        }
+    }
+    _bgImageView.image = bgImage;
+}
 -(void) didReceiveNotifyData:(NSData*) data{
     //TODO LIST:解析data数据
     Byte *btData = (Byte *)[data bytes];
@@ -498,17 +530,75 @@
     //湿度
     int hum = (int)btData[5];
      NSLog(@"湿度为： %d", hum);
+    if(hum<39){
+        _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%\n干燥",hum];
+    }else if(hum>=39&&hum<70){
+        _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%\n湿润",hum];
+    }else{
+        _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%\n潮湿",hum];
+    }
 
     //pm1
     int hipm1 = (int)btData[6];
     int lowpm1 = (int)btData[7];
     int pm1 = hipm1*256+lowpm1;
     NSLog(@"pm1为： %d", pm1);
-
+    if(pm1<35){
+        //优
+        [_leftCircle setBorderColor:[UIColor greenColor]];
+        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n优",pm1];
+    }else if(pm1>=35 &&pm1<75){
+        //良
+        [_leftCircle setBorderColor:[UIColor blueColor]];
+        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n良",pm1];
+    }else if(pm1>=75 &&pm1<115){
+        //轻度污染
+        [_leftCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n轻度污染",pm1];
+    }else if(pm1>=115 && pm1<150){
+        //中度污染
+        [_leftCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n中度污染",pm1];
+    }else if(pm1>=150 && pm1<250){
+        //重度污染
+        [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n重度污染",pm1];
+    }else{
+        //严重污染
+        [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n严重污染",pm1];
+    }
+    
     //pm2.5
     int hipm25 = (int)btData[8];
     int lowpm25 = (int)btData[9];
     int pm25 = hipm25*256+lowpm25;
+    if(pm25<35){
+        //优
+        [_rightCircle setBorderColor:[UIColor greenColor]];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n优",pm1];
+    }else if(pm25>=35 &&pm25<75){
+        //良
+        [_rightCircle setBorderColor:[UIColor blueColor]];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n良",pm1];
+    }else if(pm25>=75 &&pm25<115){
+        //轻度污染
+        [_rightCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n轻度污染",pm1];
+    }else if(pm25>=115 && pm25<150){
+        //中度污染
+        [_rightCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n中度污染",pm1];
+    }else if(pm25>=150 && pm25<250){
+        //重度污染
+        [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n重度污染",pm1];
+    }else{
+        //严重污染
+        [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n严重污染",pm1];
+    }
+        
     NSLog(@"pm25为： %d", pm25);
 
     //pm10
@@ -523,18 +613,60 @@
     float tmp = (float)((hiHCHO*256+lowHCHO)/1000.0);
     NSString *strHCHO = [NSString stringWithFormat:@"%.3f",tmp];
     NSLog(@"hcho为： %@", strHCHO);
+    if(tmp<0.1){
+        //正常
+        [_midCircle setBorderColor:[UIColor greenColor]];
+        _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n 正常",strHCHO];
+    }else if(tmp>=0.1&&tmp<0.5){
+        //轻度污染
+        [_midCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n 轻度污染",strHCHO];
+    }else if(tmp>=0.5&&tmp<0.6){
+        //污染
+        [_midCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n 污染",strHCHO];
+    }else {
+        //重度污染
+        [_midCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+        _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n 重度污染",strHCHO];
+    }
 
     //电量
     int cell = (int)btData[14];
     NSLog(@"电量为： %d", cell);
-
+    UIImage* cellImage=nil;
+    _cellImageView.contentMode=UIViewContentModeScaleAspectFit;
+    if(cell>75){
+        cellImage=[UIImage imageNamed:@"ic_battery_full"];
+        
+    }else if(cell<=75 && cell>60){
+        cellImage=[UIImage imageNamed:@"ic_battery_34"];
+        
+    }else if(cell<=60 && cell>50){
+        cellImage=[UIImage imageNamed:@"ic_battery_half"];
+        
+    }else if(cell<=50 && cell>20){
+        cellImage=[UIImage imageNamed:@"ic_battery_14"];
+    }else{
+        cellImage=[UIImage imageNamed:@"ic_battery_low"];
+        
+    }
+    CGSize cellImageSize = cellImage.size,cellViewSize = _cellView.frame.size;
+    if (cellImageSize.width > cellViewSize.width/2 && cellImageSize.height > cellViewSize.height) {
+        CGSize size = CGSizeMake(cellViewSize.width/2, cellViewSize.height);
+        cellImage = [cellImage scaleToSize:size usingMode:NYXResizeModeAspectFill];
+    }
+    _cellImageView.image = cellImage;
+    
     _tempLabel.text= [NSString stringWithFormat:@"温度: %@˚C",strTemp];
-    _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%",hum];
-    _pm1Label.text= [NSString stringWithFormat:@"PM1: %d",pm1];
-    _pm25Label.text= [NSString stringWithFormat:@"PM2.5\n %d\n ug/m3",pm25];
+  //  _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%",hum];
+//    _pm1Label.text= [NSString stringWithFormat:@"PM1: %d",pm1];
+//    _pm25Label.text= [NSString stringWithFormat:@"PM2.5\n %d\n ug/m3",pm25];
     _pm10Label.text= [NSString stringWithFormat:@" PM10\n %d\n ug/m3",pm10];
-    _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n mg/m3",strHCHO];
+//    _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n mg/m3",strHCHO];
     _cellLabel.text= [NSString stringWithFormat:@"%d%%",cell];
+    
+    [self changeBackgroundByHoho:tmp by:pm25];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -609,7 +741,8 @@
     //断开连接
     [baby setBlockOnCancelAllPeripheralsConnectionBlock:^(CBCentralManager *centralManager) {
         NSLog(@"断开连接：setBlockOnCancelAllPeripheralsConnectionBlock");
-        //weakSelf.currPeripheral=nil;
+        UIImage* connectImage=[UIImage imageNamed:@"dv_disconnected"];
+        weakSelf.connImageView.image = connectImage;
         [weakBaby AutoReconnect:weakSelf.currPeripheral];
         NSLog(@"设备重连");
     }];
@@ -623,21 +756,21 @@
     
     //设置设备连接成功的委托,同一个baby对象，使用不同的channel切换委托回调
     [baby setBlockOnConnected :^(CBCentralManager *central, CBPeripheral *peripheral) {
+    
         //停止扫描
+        [SVProgressHUD showInfoWithStatus:@"连接成功"];
+        UIImage* connectImage=[UIImage imageNamed:@"dv_connected"];
+        weakSelf.connImageView.image = connectImage;
+        NSLog(@"设备：%@--连接成功",peripheral.name);
         if(weakSelf.currPeripheral!=nil){
             return;
         };
-        
         [weakBaby cancelScan];
         
         weakSelf.currPeripheral = peripheral;
-        
-    weakBaby.having(weakSelf.currPeripheral).and.connectToPeripherals().discoverServices().discoverCharacteristics().begin();
-        
-        [SVProgressHUD showInfoWithStatus:@"连接成功"];
-
-        NSLog(@"设备：%@--连接成功",peripheral.name);
-    }];
+        weakBaby.having(weakSelf.currPeripheral).and.connectToPeripherals().discoverServices().discoverCharacteristics().begin();
+           }
+     ];
     
     //设置设备连接失败的委托
     [baby setBlockOnFailToConnect :^(CBCentralManager *central, CBPeripheral *peripheral, NSError *error) {

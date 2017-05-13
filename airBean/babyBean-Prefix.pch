@@ -24,6 +24,7 @@
 
 //蓝牙设备名称
 #define BLE_NAME @"HN_PM"
+//#define BLE_NAME @"TI"
 
 //服务以及特征uuid
 #define serviceUUID @"FFF1"

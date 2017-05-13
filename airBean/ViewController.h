@@ -32,6 +32,8 @@
 @property (strong, nonatomic)  AMPAvatarView *weatherCircle;
 
 
+@property (strong, nonatomic)  UIView *cellView;
+
 @property (strong, nonatomic)  UILabel *pm10Label;
 @property (strong, nonatomic)  UILabel *ch2oLabel;
 @property (strong, nonatomic)  UILabel *pm25Label;
