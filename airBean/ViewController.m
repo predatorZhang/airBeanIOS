@@ -208,7 +208,7 @@
     _pm10Label.font = [UIFont systemFontOfSize:12];
     _pm10Label.textColor = [UIColor whiteColor];
     _pm10Label.textAlignment = NSTextAlignmentCenter;
-    _pm10Label.text = [NSString stringWithFormat:@"PM1.0\n --\n ug/m3"];
+    _pm10Label.text = [NSString stringWithFormat:@"PM10\n --\n ug/m3"];
     [self.view addSubview:_pm10Label];
 
     [_pm10Label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -546,27 +546,27 @@
     if(pm1<35){
         //优
         [_leftCircle setBorderColor:[UIColor greenColor]];
-        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n优",pm1];
+        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n优",pm1];
     }else if(pm1>=35 &&pm1<75){
         //良
         [_leftCircle setBorderColor:[UIColor blueColor]];
-        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n良",pm1];
+        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n良",pm1];
     }else if(pm1>=75 &&pm1<115){
         //轻度污染
         [_leftCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n轻度污染",pm1];
+        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n轻度污染",pm1];
     }else if(pm1>=115 && pm1<150){
         //中度污染
         [_leftCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n中度污染",pm1];
+        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n中度污染",pm1];
     }else if(pm1>=150 && pm1<250){
         //重度污染
         [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n重度污染",pm1];
+        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n重度污染",pm1];
     }else{
         //严重污染
         [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm1Label.text= [NSString stringWithFormat:@"PM1: %d\n严重污染",pm1];
+        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n严重污染",pm1];
     }
     
     //pm2.5
@@ -576,27 +576,27 @@
     if(pm25<35){
         //优
         [_rightCircle setBorderColor:[UIColor greenColor]];
-        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n优",pm1];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n优",pm25];
     }else if(pm25>=35 &&pm25<75){
         //良
         [_rightCircle setBorderColor:[UIColor blueColor]];
-        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n良",pm1];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n良",pm25];
     }else if(pm25>=75 &&pm25<115){
         //轻度污染
         [_rightCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n轻度污染",pm1];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n轻度污染",pm25];
     }else if(pm25>=115 && pm25<150){
         //中度污染
         [_rightCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n中度污染",pm1];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n中度污染",pm25];
     }else if(pm25>=150 && pm25<250){
         //重度污染
         [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n重度污染",pm1];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n重度污染",pm25];
     }else{
         //严重污染
         [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n严重污染",pm1];
+        _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n严重污染",pm25];
     }
         
     NSLog(@"pm25为： %d", pm25);
@@ -636,7 +636,7 @@
     NSLog(@"电量为： %d", cell);
     UIImage* cellImage=nil;
     _cellImageView.contentMode=UIViewContentModeScaleAspectFit;
-    if(cell>75){
+    if(cell>75&&cell<=100){
         cellImage=[UIImage imageNamed:@"ic_battery_full"];
         
     }else if(cell<=75 && cell>60){
@@ -647,25 +647,27 @@
         
     }else if(cell<=50 && cell>20){
         cellImage=[UIImage imageNamed:@"ic_battery_14"];
-    }else{
+    }else if(cell<=20){
         cellImage=[UIImage imageNamed:@"ic_battery_low"];
-        
     }
-    CGSize cellImageSize = cellImage.size,cellViewSize = _cellView.frame.size;
-    if (cellImageSize.width > cellViewSize.width/2 && cellImageSize.height > cellViewSize.height) {
-        CGSize size = CGSizeMake(cellViewSize.width/2, cellViewSize.height);
-        cellImage = [cellImage scaleToSize:size usingMode:NYXResizeModeAspectFill];
+    if(cellImage!=nil){
+        CGSize cellImageSize = cellImage.size,cellViewSize = _cellView.frame.size;
+        if (cellImageSize.width > cellViewSize.width/2 && cellImageSize.height > cellViewSize.height) {
+            CGSize size = CGSizeMake(cellViewSize.width/2, cellViewSize.height);
+            cellImage = [cellImage scaleToSize:size usingMode:NYXResizeModeAspectFill];
+        }
+        _cellImageView.image = cellImage;
     }
-    _cellImageView.image = cellImage;
     
     _tempLabel.text= [NSString stringWithFormat:@"温度: %@˚C",strTemp];
   //  _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%",hum];
 //    _pm1Label.text= [NSString stringWithFormat:@"PM1: %d",pm1];
 //    _pm25Label.text= [NSString stringWithFormat:@"PM2.5\n %d\n ug/m3",pm25];
-    _pm10Label.text= [NSString stringWithFormat:@" PM10\n %d\n ug/m3",pm10];
+    _pm1Label.text= [NSString stringWithFormat:@" PM10\n %d\n ug/m3",pm10];
 //    _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n mg/m3",strHCHO];
-    _cellLabel.text= [NSString stringWithFormat:@"%d%%",cell];
-    
+    if(cell<=100){
+        _cellLabel.text= [NSString stringWithFormat:@"%d%%",cell];
+    }
     [self changeBackgroundByHoho:tmp by:pm25];
 }
 
