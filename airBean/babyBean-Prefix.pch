@@ -19,8 +19,8 @@
 
 
 //信鸽推送
-#define kXGPush_Id 2200258271
-#define kXGPush_Key @"ITBS7J2456KB"
+//#define kXGPush_Id 2200258271
+//#define kXGPush_Key @"ITBS7J2456KB"
 
 //蓝牙设备名称
 #define BLE_NAME @"HN_PM"

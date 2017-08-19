@@ -1,15 +1,29 @@
 PODS:
-  - AMapFoundation (1.2.0)
-  - AMapLocation (2.1.1):
-    - AMapFoundation (~> 1.2)
+  - AMapFoundation (1.4.2)
+  - AMapLocation (2.4.0):
+    - AMapFoundation (~> 1.4)
   - AMPAvatarView (1.1)
   - BabyBluetooth (0.7.0)
   - Masonry (0.5.3)
+  - MOBFoundation (3.0.2)
   - NYXImagesKit (2.3)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SVProgressHUD (2.0.3)
+  - ShareSDK3 (4.0.1):
+    - MOBFoundation
+    - ShareSDK3/ShareSDK (= 4.0.1)
+  - ShareSDK3/ShareSDK (4.0.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/QQ (4.0.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (4.0.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/WeChat (4.0.1):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKUI (4.0.1):
+    - MOBFoundation
+  - SVProgressHUD (2.1.2)
   - UMengAnalytics (3.5.10)
   - UMengSocial (4.2.3)
 
@@ -18,24 +32,32 @@ DEPENDENCIES:
   - AMPAvatarView
   - BabyBluetooth (~> 0.7.0)
   - Masonry (= 0.5.3)
+  - MOBFoundation
   - NYXImagesKit (= 2.3)
   - SDWebImage (~> 3.8)
+  - ShareSDK3
+  - ShareSDK3/ShareSDKPlatforms/QQ
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo
+  - ShareSDK3/ShareSDKPlatforms/WeChat
+  - ShareSDK3/ShareSDKUI
   - SVProgressHUD
   - UMengAnalytics (= 3.5.10)
   - UMengSocial (= 4.2.3)
 
 SPEC CHECKSUMS:
-  AMapFoundation: 8acc2bf4eed79aab4d21002ddb8b24a6f3f3621c
-  AMapLocation: dd203f76b034ef5cb546600f4e1ffad2a3a14072
+  AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
+  AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
   AMPAvatarView: 64b2aabb1cdb82067723a46960eba55f6050f6b4
   BabyBluetooth: d50758aecf24d4a0ab9271d69f0f116d6bee51c9
   Masonry: 9f515466afe48632562342a40a1c224071a1a022
+  MOBFoundation: d5e27c4638d911d3c7501aa5df458955d4814359
   NYXImagesKit: 8163e3335a40eaa173ca5bbbf81fafb57d3947eb
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  ShareSDK3: 6983a9b5209b63f2f4297fb0328d9a8dd6abd5f1
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   UMengAnalytics: 092c24aef47b6ac3c76ad51543f91156a8d7b645
   UMengSocial: 85882abe5b20aa38ad558ece71360e16b5d50909
 
-PODFILE CHECKSUM: d271ffa550ce9446ea7e49608adf2aa93114468f
+PODFILE CHECKSUM: bd4ba497f18f74aa89b692e3fb89be766be89091
 
 COCOAPODS: 1.0.1

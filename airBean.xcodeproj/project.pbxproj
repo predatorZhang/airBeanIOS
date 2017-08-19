@@ -18,8 +18,6 @@
 		9140F19E1EBD86BE00C69A74 /* libSocialSinaSSO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9140F16B1EBD86BE00C69A74 /* libSocialSinaSSO.a */; };
 		9140F19F1EBD86BE00C69A74 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9140F16C1EBD86BE00C69A74 /* libWeiboSDK.a */; };
 		9140F1A01EBD86BE00C69A74 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1761EBD86BE00C69A74 /* WeiboSDK.bundle */; };
-		9140F1A11EBD86BE00C69A74 /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9140F17A1EBD86BE00C69A74 /* libXG-SDK.a */; };
-		9140F1A21EBD86BE00C69A74 /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9140F17B1EBD86BE00C69A74 /* ReleaseNotes.txt */; };
 		9140F1A91EBDAA3B00C69A74 /* YLGIFImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F1A61EBDAA3B00C69A74 /* YLGIFImage.m */; };
 		9140F1AA1EBDAA3B00C69A74 /* YLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F1A81EBDAA3B00C69A74 /* YLImageView.m */; };
 		9140F1CE1EBECB9D00C69A74 /* dv_connected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1C41EBECB9D00C69A74 /* dv_connected@2x.png */; };
@@ -110,10 +108,6 @@
 		9140F1761EBD86BE00C69A74 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
 		9140F1771EBD86BE00C69A74 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		9140F1781EBD86BE00C69A74 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
-		9140F17A1EBD86BE00C69A74 /* libXG-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libXG-SDK.a"; sourceTree = "<group>"; };
-		9140F17B1EBD86BE00C69A74 /* ReleaseNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
-		9140F17C1EBD86BE00C69A74 /* XGPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XGPush.h; sourceTree = "<group>"; };
-		9140F17D1EBD86BE00C69A74 /* XGSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XGSetting.h; sourceTree = "<group>"; };
 		9140F1A31EBDA38500C69A74 /* babyBean-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "babyBean-Prefix.pch"; sourceTree = "<group>"; };
 		9140F1A51EBDAA3B00C69A74 /* YLGIFImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLGIFImage.h; sourceTree = "<group>"; };
 		9140F1A61EBDAA3B00C69A74 /* YLGIFImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLGIFImage.m; sourceTree = "<group>"; };
@@ -190,7 +184,6 @@
 				A902369F76FB62FBA86CF9DA /* libPods-airBean.a in Frameworks */,
 				9140F19F1EBD86BE00C69A74 /* libWeiboSDK.a in Frameworks */,
 				9140F19E1EBD86BE00C69A74 /* libSocialSinaSSO.a in Frameworks */,
-				9140F1A11EBD86BE00C69A74 /* libXG-SDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,7 +296,6 @@
 				9140F2211EBF555800C69A74 /* CityPickerVC */,
 				9140F1A41EBDAA3B00C69A74 /* YLGIFImage */,
 				9140F1691EBD86BE00C69A74 /* UMSocial_Sdk_4.3.0_Extra */,
-				9140F1791EBD86BE00C69A74 /* XGPush */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -335,17 +327,6 @@
 				9140F1781EBD86BE00C69A74 /* WeiboUser.h */,
 			);
 			path = SinaSSO;
-			sourceTree = "<group>";
-		};
-		9140F1791EBD86BE00C69A74 /* XGPush */ = {
-			isa = PBXGroup;
-			children = (
-				9140F17A1EBD86BE00C69A74 /* libXG-SDK.a */,
-				9140F17B1EBD86BE00C69A74 /* ReleaseNotes.txt */,
-				9140F17C1EBD86BE00C69A74 /* XGPush.h */,
-				9140F17D1EBD86BE00C69A74 /* XGSetting.h */,
-			);
-			path = XGPush;
 			sourceTree = "<group>";
 		};
 		9140F1A41EBDAA3B00C69A74 /* YLGIFImage */ = {
@@ -567,7 +548,7 @@
 				TargetAttributes = {
 					9140F0D71EBCB79100C69A74 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = A5RQ3CH2ZM;
+						DevelopmentTeam = M63P4Y5CCH;
 					};
 					9140F0F01EBCB79100C69A74 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -611,7 +592,6 @@
 				9140F1CE1EBECB9D00C69A74 /* dv_connected@2x.png in Resources */,
 				9140F0E81EBCB79100C69A74 /* Assets.xcassets in Resources */,
 				9140F1DA1EBED11900C69A74 /* bg_pm25@2x.png in Resources */,
-				9140F1A21EBD86BE00C69A74 /* ReleaseNotes.txt in Resources */,
 				9140F1D91EBED11900C69A74 /* bg_hch0@2x.png in Resources */,
 				9140F1D21EBECB9D00C69A74 /* ic_battery_full@2x.png in Resources */,
 				9140F0E61EBCB79100C69A74 /* Main.storyboard in Resources */,
@@ -878,7 +858,7 @@
 					"$(PROJECT_DIR)/airBean/Vendor/UMSocial_Sdk_4.3.0_Extra/SinaSSO",
 					"$(PROJECT_DIR)/airBean/Vendor/XGPush",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hainiu.airBean;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hainiu.airBean2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -903,7 +883,8 @@
 					"$(PROJECT_DIR)/airBean/Vendor/UMSocial_Sdk_4.3.0_Extra/SinaSSO",
 					"$(PROJECT_DIR)/airBean/Vendor/XGPush",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hainiu.airBean;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hainiu.airBean2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

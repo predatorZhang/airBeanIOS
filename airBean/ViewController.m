@@ -538,35 +538,18 @@
         _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%\n潮湿",hum];
     }
 
-    //pm1
-    int hipm1 = (int)btData[6];
-    int lowpm1 = (int)btData[7];
-    int pm1 = hipm1*256+lowpm1;
-    NSLog(@"pm1为： %d", pm1);
-    if(pm1<35){
-        //优
-        [_leftCircle setBorderColor:[UIColor greenColor]];
-        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n优",pm1];
-    }else if(pm1>=35 &&pm1<75){
-        //良
-        [_leftCircle setBorderColor:[UIColor blueColor]];
-        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n良",pm1];
-    }else if(pm1>=75 &&pm1<115){
-        //轻度污染
-        [_leftCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n轻度污染",pm1];
-    }else if(pm1>=115 && pm1<150){
-        //中度污染
-        [_leftCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n中度污染",pm1];
-    }else if(pm1>=150 && pm1<250){
-        //重度污染
-        [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n重度污染",pm1];
-    }else{
-        //严重污染
-        [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
-        _pm10Label.text= [NSString stringWithFormat:@"PM1: %d\n严重污染",pm1];
+    //pm10
+    int hipm10 = (int)btData[10];
+    int lowpm10 = (int)btData[11];
+    int pm10 = hipm10*256+lowpm10;
+    NSLog(@"pm10为： %d", pm10);
+    
+    if(pm10<150){//优
+         [_leftCircle setBorderColor:[UIColor greenColor]];
+          _pm10Label.text= [NSString stringWithFormat:@"PM10: %d\n ug/m3",pm10];
+        }else{//良
+         [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+          _pm10Label.text= [NSString stringWithFormat:@"PM10: %d\n ug/m3",pm10];
     }
     
     //pm2.5
@@ -601,11 +584,11 @@
         
     NSLog(@"pm25为： %d", pm25);
 
-    //pm10
-    int hipm10 = (int)btData[10];
-    int lowpm10 = (int)btData[11];
-    int pm10 = hipm10*256+lowpm10;
-    NSLog(@"pm10为： %d", pm10);
+    //pm1
+    int hipm1 = (int)btData[10];
+    int lowpm1 = (int)btData[11];
+    int pm1 = hipm1*256+lowpm1;
+    NSLog(@"pm1为： %d", pm1);
 
     //hcho
     int hiHCHO = (int)btData[12];
@@ -663,7 +646,7 @@
   //  _humiLabel.text= [NSString stringWithFormat:@"湿度: %d%%",hum];
 //    _pm1Label.text= [NSString stringWithFormat:@"PM1: %d",pm1];
 //    _pm25Label.text= [NSString stringWithFormat:@"PM2.5\n %d\n ug/m3",pm25];
-    _pm1Label.text= [NSString stringWithFormat:@" PM10\n %d\n ug/m3",pm10];
+    _pm1Label.text= [NSString stringWithFormat:@" PM1:%d\n ug/m3",pm1];
 //    _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n mg/m3",strHCHO];
     if(cell<=100){
         _cellLabel.text= [NSString stringWithFormat:@"%d%%",cell];
