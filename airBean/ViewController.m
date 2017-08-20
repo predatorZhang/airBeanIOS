@@ -13,7 +13,8 @@
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "UIImageView+WebCache.h"
-
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @interface ViewController (){
     NSMutableArray *peripheralDataArray;
@@ -141,6 +142,51 @@
     [SVProgressHUD show];
 }
 
+-(void)share:(id)tap{
+    
+    //1、创建分享参数
+    NSArray* imageArray = @[[UIImage imageNamed:@"bg_hch0.png"]];
+    if (imageArray) {
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:@"分享内容"
+                                         images:imageArray
+                                            url:[NSURL URLWithString:@"http://mob.com"]
+                                          title:@"分享标题"
+                                           type:SSDKContentTypeAuto];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK showShareActionSheet:nil
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                   message:nil
+                                                                                  delegate:nil
+                                                                         cancelButtonTitle:@"确定"
+                                                                         otherButtonTitles:nil];
+                               [alertView show];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:[NSString stringWithFormat:@"%@",error]
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"OK"
+                                                                     otherButtonTitles:nil, nil];
+                               [alert show];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                   }
+         ];
+    }
+   }
+
 -(void) initUI{
 //    
 //    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(scanDev:)];
@@ -246,11 +292,29 @@
         
     }];
     
-    
+    //share view
+    _shareView = [[UIView alloc] initWithFrame:CGRectMake(20, 30, 30, 40)];
+    [self.view addSubview:_shareView];
+    _shareImageView=[UIImageView new];
+    UIImage* shareImage=[UIImage imageNamed:@"share"];
+    CGSize shareImageSize = shareImage.size,shareViewSize = _shareView.frame.size;
+    if (shareImageSize.width > shareViewSize.width/2 && shareImageSize.height > shareViewSize.height) {
+        CGSize size = CGSizeMake(shareViewSize.width/2, shareViewSize.height);
+        shareImage = [shareImage scaleToSize:size usingMode:NYXResizeModeAspectFill];
+    }
+    _shareImageView.image = shareImage;
+    [_shareView addSubview:_shareImageView];
+    UITapGestureRecognizer* shareTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(share:)];
+    [_shareView addGestureRecognizer:shareTap];
+    [_shareImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_shareView.mas_centerX);
+        make.centerY.equalTo(_shareView.mas_centerY);
+    }];
+
+    //电池电量
     _cellView = [[UIView alloc] initWithFrame:CGRectMake(kScreen_Width-50, 30, 30, 40)];
     [self.view addSubview:_cellView];
 
-    //电池电量
     _cellLabel = [[UILabel alloc] init];
     _cellLabel.numberOfLines = 0;
     _cellLabel.backgroundColor = [UIColor clearColor];

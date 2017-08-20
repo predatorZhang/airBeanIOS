@@ -55,6 +55,7 @@
 		9140F2851EC4AEF300C69A74 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2721EC4AEF300C69A74 /* UIProgressView+AFNetworking.m */; };
 		9140F2861EC4AEF300C69A74 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2741EC4AEF300C69A74 /* UIRefreshControl+AFNetworking.m */; };
 		9140F2871EC4AEF300C69A74 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2761EC4AEF300C69A74 /* UIWebView+AFNetworking.m */; };
+		91A416221F4927DE002325EC /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A416211F4927DE002325EC /* share@2x.png */; };
 		A902369F76FB62FBA86CF9DA /* libPods-airBean.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B352C3917912146129D8787D /* libPods-airBean.a */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +174,7 @@
 		9140F2741EC4AEF300C69A74 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		9140F2751EC4AEF300C69A74 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		9140F2761EC4AEF300C69A74 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		91A416211F4927DE002325EC /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
 		B352C3917912146129D8787D /* libPods-airBean.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-airBean.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -343,6 +345,7 @@
 		9140F1C01EBECB9D00C69A74 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				91A416211F4927DE002325EC /* share@2x.png */,
 				9140F1D51EBED11900C69A74 /* bg_2@2x.png */,
 				9140F1D61EBED11900C69A74 /* bg_hch0@2x.png */,
 				9140F1D71EBED11900C69A74 /* bg_pm25@2x.png */,
@@ -548,7 +551,7 @@
 				TargetAttributes = {
 					9140F0D71EBCB79100C69A74 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = M63P4Y5CCH;
+						DevelopmentTeam = A5RQ3CH2ZM;
 					};
 					9140F0F01EBCB79100C69A74 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -587,6 +590,7 @@
 			files = (
 				9140F1D41EBECB9D00C69A74 /* ic_battery_low@2x.png in Resources */,
 				9140F1D11EBECB9D00C69A74 /* ic_battery_34@2x.png in Resources */,
+				91A416221F4927DE002325EC /* share@2x.png in Resources */,
 				9140F2331EBF555800C69A74 /* nav@2x.png in Resources */,
 				9140F0EB1EBCB79100C69A74 /* LaunchScreen.storyboard in Resources */,
 				9140F1CE1EBECB9D00C69A74 /* dv_connected@2x.png in Resources */,

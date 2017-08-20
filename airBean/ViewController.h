@@ -24,6 +24,7 @@
 @property (strong, nonatomic) UIImageView *pm1ImageView;
 @property (strong, nonatomic) UIImageView *humiImageView;
 @property (strong, nonatomic) UIImageView *connImageView;
+@property (strong, nonatomic) UIImageView *shareImageView;
 
 
 @property (strong, nonatomic)  AMPAvatarView *leftCircle;
@@ -33,6 +34,8 @@
 
 
 @property (strong, nonatomic)  UIView *cellView;
+@property (strong, nonatomic)  UIView *shareView;
+
 
 @property (strong, nonatomic)  UILabel *pm10Label;
 @property (strong, nonatomic)  UILabel *ch2oLabel;
