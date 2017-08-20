@@ -142,14 +142,68 @@
     [SVProgressHUD show];
 }
 
+#pragma mark - 截屏分享
+//获取截屏
+- (NSData *)dataWithScreenshotInPNGFormat
+{
+    CGSize imageSize = CGSizeZero;
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation; //检测横竖屏
+    if (UIInterfaceOrientationIsPortrait(orientation))
+        imageSize = [UIScreen mainScreen].bounds.size; //竖屏
+    else
+        imageSize = CGSizeMake([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width); //横屏
+    
+    //开始绘制图片
+    UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    for (UIWindow *window in [[UIApplication sharedApplication] windows])
+    {
+        CGContextSaveGState(context);
+        CGContextTranslateCTM(context, window.center.x, window.center.y);
+        CGContextConcatCTM(context, window.transform);
+        CGContextTranslateCTM(context, -window.bounds.size.width * window.layer.anchorPoint.x, -window.bounds.size.height * window.layer.anchorPoint.y);
+        //根据偏转修改坐标系，来显示图片
+        if (orientation == UIInterfaceOrientationLandscapeLeft)
+        {
+            CGContextRotateCTM(context, M_PI_2);
+            CGContextTranslateCTM(context, 0, -imageSize.width);
+        }
+        else if (orientation == UIInterfaceOrientationLandscapeRight)
+        {
+            CGContextRotateCTM(context, -M_PI_2);
+            CGContextTranslateCTM(context, -imageSize.height, 0);
+        } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+            CGContextRotateCTM(context, M_PI);
+            CGContextTranslateCTM(context, -imageSize.width, -imageSize.height);
+        }
+        if ([window respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)])
+        {
+            [window drawViewHierarchyInRect:window.bounds afterScreenUpdates:YES];
+        }
+        else
+        {
+            [window.layer renderInContext:context];
+        }
+        CGContextRestoreGState(context);
+    }
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return UIImagePNGRepresentation(image);
+}
+
 -(void)share:(id)tap{
     
+    //调用截屏
+    NSData* imageData = [self dataWithScreenshotInPNGFormat];
+    UIImage * shareImage = [UIImage imageWithData:imageData];
     //1、创建分享参数
-    NSArray* imageArray = @[[UIImage imageNamed:@"bg_hch0.png"]];
-    if (imageArray) {
+    //NSArray* imageArray = @[[UIImage imageNamed:@"bg_hch0.png"]];
+    if (shareImage) {
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:@"分享内容"
-                                         images:imageArray
+                                         images:shareImage
                                             url:[NSURL URLWithString:@"http://mob.com"]
                                           title:@"分享标题"
                                            type:SSDKContentTypeAuto];
