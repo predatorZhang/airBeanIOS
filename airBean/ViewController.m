@@ -202,11 +202,16 @@
     //NSArray* imageArray = @[[UIImage imageNamed:@"bg_hch0.png"]];
     if (shareImage) {
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:@"分享内容"
+//        [shareParams SSDKSetupShareParamsByText:@"海牛钛氪"
+//                                         images:shareImage
+//                                            url:[NSURL URLWithString:@"http://mob.com"]
+//                                            title:@"分享标题"
+//                                            type:SSDKContentTypeImage];
+        [shareParams SSDKSetupShareParamsByText:@"海牛钛氪"
                                          images:shareImage
-                                            url:[NSURL URLWithString:@"http://mob.com"]
-                                          title:@"分享标题"
-                                           type:SSDKContentTypeAuto];
+                                            url:nil
+                                           title:nil
+                                           type:SSDKContentTypeImage];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
         [ShareSDK showShareActionSheet:nil
                                  items:nil

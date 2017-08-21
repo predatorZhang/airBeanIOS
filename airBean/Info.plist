@@ -18,10 +18,25 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx4ac80c79e77d7f5b</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MOBAppSecret</key>
+	<string>6c6c63c1699550937c43b9bf121ffcf6</string>
+	<key>MOBAppkey</key>
+	<string>204dd0c6632f4</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -35,10 +50,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>MOBAppkey</key>
-	<string>204dd0c6632f4</string>
-	<key>MOBAppSecret</key>
-	<string>6c6c63c1699550937c43b9bf121ffcf6</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
