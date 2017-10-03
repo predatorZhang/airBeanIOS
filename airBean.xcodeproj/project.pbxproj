@@ -20,16 +20,11 @@
 		9140F1A01EBD86BE00C69A74 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1761EBD86BE00C69A74 /* WeiboSDK.bundle */; };
 		9140F1A91EBDAA3B00C69A74 /* YLGIFImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F1A61EBDAA3B00C69A74 /* YLGIFImage.m */; };
 		9140F1AA1EBDAA3B00C69A74 /* YLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F1A81EBDAA3B00C69A74 /* YLImageView.m */; };
-		9140F1CE1EBECB9D00C69A74 /* dv_connected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1C41EBECB9D00C69A74 /* dv_connected@2x.png */; };
-		9140F1CF1EBECB9D00C69A74 /* dv_disconnected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1C51EBECB9D00C69A74 /* dv_disconnected@2x.png */; };
 		9140F1D01EBECB9D00C69A74 /* ic_battery_14@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1C61EBECB9D00C69A74 /* ic_battery_14@2x.png */; };
 		9140F1D11EBECB9D00C69A74 /* ic_battery_34@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1C71EBECB9D00C69A74 /* ic_battery_34@2x.png */; };
 		9140F1D21EBECB9D00C69A74 /* ic_battery_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1C81EBECB9D00C69A74 /* ic_battery_full@2x.png */; };
 		9140F1D31EBECB9D00C69A74 /* ic_battery_half@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1C91EBECB9D00C69A74 /* ic_battery_half@2x.png */; };
 		9140F1D41EBECB9D00C69A74 /* ic_battery_low@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1CA1EBECB9D00C69A74 /* ic_battery_low@2x.png */; };
-		9140F1D81EBED11900C69A74 /* bg_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1D51EBED11900C69A74 /* bg_2@2x.png */; };
-		9140F1D91EBED11900C69A74 /* bg_hch0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1D61EBED11900C69A74 /* bg_hch0@2x.png */; };
-		9140F1DA1EBED11900C69A74 /* bg_pm25@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9140F1D71EBED11900C69A74 /* bg_pm25@2x.png */; };
 		9140F22E1EBF555800C69A74 /* City.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9140F2221EBF555800C69A74 /* City.plist */; };
 		9140F22F1EBF555800C69A74 /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2241EBF555800C69A74 /* CityModel.m */; };
 		9140F2301EBF555800C69A74 /* CityPickerHeaderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2271EBF555800C69A74 /* CityPickerHeaderItemView.m */; };
@@ -55,7 +50,10 @@
 		9140F2851EC4AEF300C69A74 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2721EC4AEF300C69A74 /* UIProgressView+AFNetworking.m */; };
 		9140F2861EC4AEF300C69A74 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2741EC4AEF300C69A74 /* UIRefreshControl+AFNetworking.m */; };
 		9140F2871EC4AEF300C69A74 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9140F2761EC4AEF300C69A74 /* UIWebView+AFNetworking.m */; };
-		91A416221F4927DE002325EC /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A416211F4927DE002325EC /* share@2x.png */; };
+		91FB5AD21F8258B100D6D69E /* bg_nightsky@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91FB5AD11F8258B100D6D69E /* bg_nightsky@2x.png */; };
+		91FB5AD91F825C6800D6D69E /* dv_connected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91FB5AD71F825C6800D6D69E /* dv_connected@2x.png */; };
+		91FB5ADA1F825C6800D6D69E /* dv_disconnected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91FB5AD81F825C6800D6D69E /* dv_disconnected@2x.png */; };
+		91FB5ADC1F82776200D6D69E /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91FB5ADB1F82776200D6D69E /* share@2x.png */; };
 		A902369F76FB62FBA86CF9DA /* libPods-airBean.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B352C3917912146129D8787D /* libPods-airBean.a */; };
 /* End PBXBuildFile section */
 
@@ -114,16 +112,11 @@
 		9140F1A61EBDAA3B00C69A74 /* YLGIFImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLGIFImage.m; sourceTree = "<group>"; };
 		9140F1A71EBDAA3B00C69A74 /* YLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLImageView.h; sourceTree = "<group>"; };
 		9140F1A81EBDAA3B00C69A74 /* YLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLImageView.m; sourceTree = "<group>"; };
-		9140F1C41EBECB9D00C69A74 /* dv_connected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dv_connected@2x.png"; sourceTree = "<group>"; };
-		9140F1C51EBECB9D00C69A74 /* dv_disconnected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dv_disconnected@2x.png"; sourceTree = "<group>"; };
 		9140F1C61EBECB9D00C69A74 /* ic_battery_14@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_battery_14@2x.png"; sourceTree = "<group>"; };
 		9140F1C71EBECB9D00C69A74 /* ic_battery_34@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_battery_34@2x.png"; sourceTree = "<group>"; };
 		9140F1C81EBECB9D00C69A74 /* ic_battery_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_battery_full@2x.png"; sourceTree = "<group>"; };
 		9140F1C91EBECB9D00C69A74 /* ic_battery_half@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_battery_half@2x.png"; sourceTree = "<group>"; };
 		9140F1CA1EBECB9D00C69A74 /* ic_battery_low@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_battery_low@2x.png"; sourceTree = "<group>"; };
-		9140F1D51EBED11900C69A74 /* bg_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_2@2x.png"; sourceTree = "<group>"; };
-		9140F1D61EBED11900C69A74 /* bg_hch0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_hch0@2x.png"; sourceTree = "<group>"; };
-		9140F1D71EBED11900C69A74 /* bg_pm25@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_pm25@2x.png"; sourceTree = "<group>"; };
 		9140F2221EBF555800C69A74 /* City.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = City.plist; sourceTree = "<group>"; };
 		9140F2231EBF555800C69A74 /* CityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityModel.h; sourceTree = "<group>"; };
 		9140F2241EBF555800C69A74 /* CityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
@@ -174,7 +167,10 @@
 		9140F2741EC4AEF300C69A74 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		9140F2751EC4AEF300C69A74 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		9140F2761EC4AEF300C69A74 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		91A416211F4927DE002325EC /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
+		91FB5AD11F8258B100D6D69E /* bg_nightsky@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_nightsky@2x.png"; sourceTree = "<group>"; };
+		91FB5AD71F825C6800D6D69E /* dv_connected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dv_connected@2x.png"; sourceTree = "<group>"; };
+		91FB5AD81F825C6800D6D69E /* dv_disconnected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dv_disconnected@2x.png"; sourceTree = "<group>"; };
+		91FB5ADB1F82776200D6D69E /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
 		B352C3917912146129D8787D /* libPods-airBean.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-airBean.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -345,12 +341,10 @@
 		9140F1C01EBECB9D00C69A74 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				91A416211F4927DE002325EC /* share@2x.png */,
-				9140F1D51EBED11900C69A74 /* bg_2@2x.png */,
-				9140F1D61EBED11900C69A74 /* bg_hch0@2x.png */,
-				9140F1D71EBED11900C69A74 /* bg_pm25@2x.png */,
-				9140F1C41EBECB9D00C69A74 /* dv_connected@2x.png */,
-				9140F1C51EBECB9D00C69A74 /* dv_disconnected@2x.png */,
+				91FB5ADB1F82776200D6D69E /* share@2x.png */,
+				91FB5AD71F825C6800D6D69E /* dv_connected@2x.png */,
+				91FB5AD81F825C6800D6D69E /* dv_disconnected@2x.png */,
+				91FB5AD11F8258B100D6D69E /* bg_nightsky@2x.png */,
 				9140F1C61EBECB9D00C69A74 /* ic_battery_14@2x.png */,
 				9140F1C71EBECB9D00C69A74 /* ic_battery_34@2x.png */,
 				9140F1C81EBECB9D00C69A74 /* ic_battery_full@2x.png */,
@@ -590,22 +584,20 @@
 			files = (
 				9140F1D41EBECB9D00C69A74 /* ic_battery_low@2x.png in Resources */,
 				9140F1D11EBECB9D00C69A74 /* ic_battery_34@2x.png in Resources */,
-				91A416221F4927DE002325EC /* share@2x.png in Resources */,
 				9140F2331EBF555800C69A74 /* nav@2x.png in Resources */,
 				9140F0EB1EBCB79100C69A74 /* LaunchScreen.storyboard in Resources */,
-				9140F1CE1EBECB9D00C69A74 /* dv_connected@2x.png in Resources */,
 				9140F0E81EBCB79100C69A74 /* Assets.xcassets in Resources */,
-				9140F1DA1EBED11900C69A74 /* bg_pm25@2x.png in Resources */,
-				9140F1D91EBED11900C69A74 /* bg_hch0@2x.png in Resources */,
+				91FB5AD91F825C6800D6D69E /* dv_connected@2x.png in Resources */,
 				9140F1D21EBECB9D00C69A74 /* ic_battery_full@2x.png in Resources */,
+				91FB5AD21F8258B100D6D69E /* bg_nightsky@2x.png in Resources */,
 				9140F0E61EBCB79100C69A74 /* Main.storyboard in Resources */,
 				9140F1D31EBECB9D00C69A74 /* ic_battery_half@2x.png in Resources */,
-				9140F1D81EBED11900C69A74 /* bg_2@2x.png in Resources */,
 				9140F1D01EBECB9D00C69A74 /* ic_battery_14@2x.png in Resources */,
 				9140F2321EBF555800C69A74 /* nav.png in Resources */,
+				91FB5ADC1F82776200D6D69E /* share@2x.png in Resources */,
 				9140F22E1EBF555800C69A74 /* City.plist in Resources */,
-				9140F1CF1EBECB9D00C69A74 /* dv_disconnected@2x.png in Resources */,
 				9140F1A01EBD86BE00C69A74 /* WeiboSDK.bundle in Resources */,
+				91FB5ADA1F825C6800D6D69E /* dv_disconnected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

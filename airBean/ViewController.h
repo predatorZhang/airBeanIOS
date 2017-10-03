@@ -14,7 +14,6 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 
-
 @interface ViewController : UIViewController<CityPickerViewControllerDelegate>
 
 @property(strong,nonatomic)CBPeripheral *currPeripheral;
@@ -33,6 +32,7 @@
 @property (strong, nonatomic)  AMPAvatarView *weatherCircle;
 
 
+
 @property (strong, nonatomic)  UIView *cellView;
 @property (strong, nonatomic)  UIView *shareView;
 
@@ -46,11 +46,16 @@
 @property (strong, nonatomic)  UILabel *pm1Label;
 @property (strong, nonatomic)  UILabel *humiLabel;
 
+
+
+@property(nonatomic) CGPoint leftCenter;
+@property(nonatomic) CGPoint midCenter;
+@property(nonatomic) CGPoint rightCenter;
+
+
 @property (strong, nonatomic)  AMapLocationManager *locationManager;
 
 @property (strong, nonatomic)  NSString *curCity;
-
-
 
 -(void) didReceiveNotifyData:(NSData*) data;
 -(float) convertToFloat:(Byte*) btDatas;

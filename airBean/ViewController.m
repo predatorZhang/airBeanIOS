@@ -19,6 +19,15 @@
 @interface ViewController (){
     NSMutableArray *peripheralDataArray;
     BabyBluetooth *baby;
+    
+    AMPAvatarView *curLeftCircle;
+    AMPAvatarView *curMidCircle;
+    AMPAvatarView *curRightCircle;
+
+    UILabel *curLeftLabel;
+    UILabel *curMidLabel;
+    UILabel *curRightLabel;
+    bool rightScaleFlag;
 }
 @end
 
@@ -67,6 +76,7 @@
             NSLog(@"reGeocode:%@", regeocode);
         }
     }];
+    
 }
 
 
@@ -246,6 +256,157 @@
     }
    }
 
+-(void)tapLeftAction:(id)tap{
+    
+    AMPAvatarView *tmp =curLeftCircle;
+    curLeftCircle = curMidCircle;
+    curMidCircle = tmp;
+    
+    UILabel *tmpLable = curLeftLabel;
+    curLeftLabel = curMidLabel;
+    curMidLabel = tmpLable;
+    
+    //放大
+    CABasicAnimation * scaleUpAmi = [CABasicAnimation animation];
+    scaleUpAmi.keyPath = @"transform.scale";
+    //scaleUpAmi.toValue = rightScaleFlag?@(1.0):@(3.0/2.0);
+    scaleUpAmi.toValue = curMidCircle==_leftCircle || curMidCircle==_rightCircle?@(3.0/2.0):@(1.0);
+    
+    //缩小
+    CABasicAnimation * scaleDownAmi = [CABasicAnimation animation];
+    scaleDownAmi.keyPath = @"transform.scale";
+    scaleDownAmi.toValue = curLeftCircle==_midCircle?@(2.0/3.0):@(1.0);
+
+//    scaleDownAmi.toValue = rightScaleFlag?@(1.0):@(2.0/3.0);
+    //scaleDownAmi.toValue = @(1.0);
+    rightScaleFlag = !rightScaleFlag;
+    
+    NSValue *value1 = [NSValue valueWithCGPoint:CGPointMake(_midCircle.center.x, _midCircle.center.y)];
+    NSValue *value2 = [NSValue valueWithCGPoint:CGPointMake(_leftCircle.center.x, _leftCircle.center.y)];
+    
+    //mid->left
+    CAKeyframeAnimation *middleToLeftAmi = [CAKeyframeAnimation animation];
+    middleToLeftAmi.keyPath = @"position";
+    middleToLeftAmi.values = @[value1,value2];
+    
+    //left->mid
+    CAKeyframeAnimation *leftToMiddleAmi = [CAKeyframeAnimation animation];
+    leftToMiddleAmi.keyPath = @"position";
+    leftToMiddleAmi.values = @[value2,value1];
+    
+    
+    CAAnimationGroup * midToLeftGroup = [[CAAnimationGroup alloc] init];
+    midToLeftGroup.duration = 0.5;
+    midToLeftGroup.fillMode = kCAFillModeForwards;
+    midToLeftGroup.removedOnCompletion = NO;
+    midToLeftGroup.repeatCount = 0;
+    midToLeftGroup.animations = @[scaleDownAmi,middleToLeftAmi];
+    
+    midToLeftGroup.delegate = self;
+    
+    CAAnimationGroup * leftToMidGroup = [[CAAnimationGroup alloc] init];
+    leftToMidGroup.duration = 0.5;
+    leftToMidGroup.fillMode = kCAFillModeForwards;
+    leftToMidGroup.removedOnCompletion = NO;
+    leftToMidGroup.repeatCount = 0;
+    leftToMidGroup.animations = @[scaleUpAmi,leftToMiddleAmi];
+    
+    leftToMidGroup.delegate=self;
+    
+    [curLeftCircle.layer addAnimation:midToLeftGroup forKey:@"leftToMidCircle"];
+    [curLeftLabel.layer addAnimation:midToLeftGroup forKey:@"leftToMidLabel"];
+    
+    [curMidCircle.layer addAnimation:leftToMidGroup forKey:@"midToLeftCircle"];
+    [curMidLabel.layer addAnimation:leftToMidGroup forKey:@"midToLeftLabel"];
+    
+}
+
+
+-(void)tapRightAction:(id)tap{
+    
+    AMPAvatarView *tmp =curRightCircle;
+    curRightCircle = curMidCircle;
+    curMidCircle = tmp;
+    
+    UILabel *tmpLable = curRightLabel;
+    curRightLabel = curMidLabel;
+    curMidLabel = tmpLable;
+    
+    //放大
+    CABasicAnimation * scaleUpAmi = [CABasicAnimation animation];
+    scaleUpAmi.keyPath = @"transform.scale";
+//    scaleUpAmi.toValue = rightScaleFlag?@(1.0):@(3.0/2.0);
+    scaleUpAmi.toValue = curMidCircle==_leftCircle || curMidCircle==_rightCircle?@(3.0/2.0):@(1.0);
+
+  //  scaleUpAmi.toValue = @(1.0);
+    
+    //缩小
+    CABasicAnimation * scaleDownAmi = [CABasicAnimation animation];
+    scaleDownAmi.keyPath = @"transform.scale";
+    scaleDownAmi.toValue = curRightCircle==_midCircle?@(2.0/3.0):@(1.0);
+//    scaleDownAmi.toValue = rightScaleFlag?@(1.0):@(2.0/3.0);
+    //scaleDownAmi.toValue = @(1.0);
+    rightScaleFlag = !rightScaleFlag;
+    
+    NSValue *value1 = [NSValue valueWithCGPoint:CGPointMake(_midCircle.center.x, _midCircle.center.y)];
+    NSValue *value2 = [NSValue valueWithCGPoint:CGPointMake(_rightCircle.center.x, _rightCircle.center.y)];
+    
+    //mid->right
+    CAKeyframeAnimation *middleToRightAmi = [CAKeyframeAnimation animation];
+    middleToRightAmi.keyPath = @"position";
+    middleToRightAmi.values = @[value1,value2];
+    
+    //right->mid
+    CAKeyframeAnimation *rightToMiddleAmi = [CAKeyframeAnimation animation];
+    rightToMiddleAmi.keyPath = @"position";
+    rightToMiddleAmi.values = @[value2,value1];
+    
+    
+    CAAnimationGroup * midToRightGroup = [[CAAnimationGroup alloc] init];
+    midToRightGroup.duration = 0.5;
+    midToRightGroup.fillMode = kCAFillModeForwards;
+    midToRightGroup.removedOnCompletion = NO;
+    midToRightGroup.repeatCount = 0;
+    midToRightGroup.animations = @[scaleDownAmi,middleToRightAmi];
+
+    midToRightGroup.delegate = self;
+    
+    CAAnimationGroup * rightToMidGroup = [[CAAnimationGroup alloc] init];
+    rightToMidGroup.duration = 0.5;
+    rightToMidGroup.fillMode = kCAFillModeForwards;
+    rightToMidGroup.removedOnCompletion = NO;
+    rightToMidGroup.repeatCount = 0;
+    rightToMidGroup.animations = @[scaleUpAmi,rightToMiddleAmi];
+
+    rightToMidGroup.delegate=self;
+    
+    [curRightCircle.layer addAnimation:midToRightGroup forKey:@"rightToMidCircle"];
+    [curRightLabel.layer addAnimation:midToRightGroup forKey:@"rightToMidLabel"];
+    
+    [curMidCircle.layer addAnimation:rightToMidGroup forKey:@"midToRightCircle"];
+    [curMidLabel.layer addAnimation:rightToMidGroup forKey:@"midToRightLabel"];
+
+}
+
+-(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    if([curRightCircle.layer animationForKey:@"rightToMidCircle"] == anim) {
+        [curRightCircle setBorderWidth:kScreen_Width/25];
+//        [curRightCircle mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.size.mas_equalTo(CGSizeMake(kScreen_Width/3.0, kScreen_Width/3.0));
+//        }];
+    }else if ([curRightLabel.layer animationForKey:@"rightToMidLabel"] == anim){
+        
+    }else if ([curMidCircle.layer animationForKey:@"midToRightCircle"] == anim){
+        [curMidCircle setBorderWidth:kScreen_Width/25];
+//        [curMidCircle mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.size.mas_equalTo(CGSizeMake(kScreen_Width/2.0, kScreen_Width/2.0));
+//        }];
+        
+    }else if ([curMidLabel.layer animationForKey:@"midToRightLabel"] == anim){
+        
+    }
+}
+
 -(void) initUI{
 //    
 //    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(scanDev:)];
@@ -256,7 +417,7 @@
     [self.view addSubview:_bgImageView];
 
     //初始化背景图片
-    UIImage *bgImage =  [UIImage imageNamed:@"bg_hch0"];
+    UIImage *bgImage =  [UIImage imageNamed:@"bg_nightsky"];
     CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
     
     if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
@@ -268,7 +429,8 @@
     //左侧圆环
     _leftCircle=[AMPAvatarView new];
     [_leftCircle setBorderWidth:kScreen_Width/25];
-    [_leftCircle setBorderColor:[UIColor greenColor]];
+    //[_leftCircle setBorderColor:[UIColor greenColor]];
+    [_leftCircle setBorderColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]];
     [_leftCircle setInnerBackgroundColor:[UIColor blackColor]];
     [_leftCircle setShadowColor:[UIColor colorWithRed:1/123 green:1/23 blue:1/233 alpha:1]];
     [self.view addSubview:_leftCircle];
@@ -276,11 +438,14 @@
         make.size.mas_equalTo(CGSizeMake(kScreen_Width/3, kScreen_Width/3));
         make.centerY.equalTo(self.view.mas_centerY);
         }];
+    UITapGestureRecognizer *tapLeftGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapLeftAction:)];
+    [_leftCircle addGestureRecognizer:tapLeftGesturRecognizer];
     
-    //左侧圆环
+    //右侧圆环
     _rightCircle=[AMPAvatarView new];
     [_rightCircle setBorderWidth:kScreen_Width/25];
-    [_rightCircle setBorderColor:[UIColor greenColor]];
+//    [_rightCircle setBorderColor:[UIColor greenColor]];
+    [_rightCircle setBorderColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]];
     [_rightCircle setInnerBackgroundColor:[UIColor blackColor]];
     [_rightCircle setShadowColor:[UIColor colorWithRed:1/123 green:1/23 blue:1/233 alpha:1]];
     [self.view addSubview:_rightCircle];
@@ -289,11 +454,15 @@
         make.centerY.equalTo(self.view.mas_centerY);
         make.right.equalTo(self.view.mas_right);
     }];
-  
+    //todo list: 演示动画
+    UITapGestureRecognizer *tapRightGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapRightAction:)];
+    [_rightCircle addGestureRecognizer:tapRightGesturRecognizer];
+    
     //中间圆环
     _midCircle=[AMPAvatarView new];
     [_midCircle setBorderWidth:kScreen_Width/25];
-    [_midCircle setBorderColor:[UIColor greenColor]];
+//    [_midCircle setBorderColor:[UIColor greenColor]];
+    [_midCircle setBorderColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]];
     [_midCircle setInnerBackgroundColor:[UIColor blackColor]];
     [_midCircle setShadowColor:[UIColor colorWithRed:1/123 green:1/23 blue:1/233 alpha:1]];
     [self.view addSubview:_midCircle];
@@ -352,7 +521,7 @@
     }];
     
     //share view
-    _shareView = [[UIView alloc] initWithFrame:CGRectMake(20, 30, 30, 40)];
+    _shareView = [[UIView alloc] initWithFrame:CGRectMake(20, 30, 15, 20)];
     [self.view addSubview:_shareView];
     _shareImageView=[UIImageView new];
     UIImage* shareImage=[UIImage imageNamed:@"share"];
@@ -542,6 +711,16 @@
         make.size.mas_equalTo(CGSizeMake(15, 15));
     }];
     
+    //暂存各个状态，用于后期的转动
+    curLeftCircle = _leftCircle;
+    curMidCircle = _midCircle;
+    curRightCircle = _rightCircle;
+    curLeftLabel = _pm10Label;
+    curMidLabel = _ch2oLabel;
+    curRightLabel = _pm25Label;
+//    _leftCenter= CGPointMake(_leftCircle.center.x, _leftCircle.center.y);
+//    _midCenter= CGPointMake(_midCircle.center.x, _midCircle.center.y);
+//    _rightCenter= CGPointMake(_rightCircle.center.x, _rightCircle.center.y);
 }
 -(void)cityPickerAction:(id)tap
 {
@@ -595,7 +774,6 @@
             
             [childrenArray addObject:childCityModel];
         }
-        
         cityModel.children = childrenArray;
     }
     
@@ -613,28 +791,28 @@
 }
 
 -(void) changeBackgroundByHoho:(float)hcho by:(float)pm25{
-    UIImage *bgImage =nil;
-    if(hcho>0.5){
-        bgImage =  [UIImage imageNamed:@"bg_hch0"];
-        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
-        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
-            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
-        }
-        
-    }else if(pm25>115){
-        bgImage =  [UIImage imageNamed:@"bg_pm25"];
-        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
-        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
-            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
-        }
-    }else{
-        bgImage =  [UIImage imageNamed:@"bg_2"];
-        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
-        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
-            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
-        }
-    }
-    _bgImageView.image = bgImage;
+//    UIImage *bgImage =nil;
+//    if(hcho>0.5){
+//        bgImage =  [UIImage imageNamed:@"bg_hch0"];
+//        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
+//        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
+//            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
+//        }
+//        
+//    }else if(pm25>115){
+//        bgImage =  [UIImage imageNamed:@"bg_pm25"];
+//        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
+//        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
+//            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
+//        }
+//    }else{
+//        bgImage =  [UIImage imageNamed:@"bg_2"];
+//        CGSize bgImageSize = bgImage.size, bgViewSize = _bgImageView.frame.size;
+//        if (bgImageSize.width > bgViewSize.width && bgImageSize.height > bgViewSize.height) {
+//            bgImage = [bgImage scaleToSize:bgViewSize usingMode:NYXResizeModeAspectFill];
+//        }
+//    }
+//    _bgImageView.image = bgImage;
 }
 -(void) didReceiveNotifyData:(NSData*) data{
     //TODO LIST:解析data数据
@@ -793,6 +971,9 @@
     
     __weak typeof(self) weakSelf = self;
     __weak typeof(baby) weakBaby = baby;
+    __weak typeof(_leftCircle) weakLeftCircle = _leftCircle;
+    __weak typeof(_rightCircle) weakRightCircle = _rightCircle;
+    __weak typeof(_midCircle) weakMidCircle = _midCircle;
 
     //设备打开成功回调
     [baby setBlockOnCentralManagerDidUpdateState:^(CBCentralManager *central) {
@@ -851,6 +1032,10 @@
         NSLog(@"断开连接：setBlockOnCancelAllPeripheralsConnectionBlock");
         UIImage* connectImage=[UIImage imageNamed:@"dv_disconnected"];
         weakSelf.connImageView.image = connectImage;
+        [weakLeftCircle setBorderColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]];
+        [weakRightCircle setBorderColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]];
+        [weakMidCircle setBorderColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]];
+        
         [weakBaby AutoReconnect:weakSelf.currPeripheral];
         NSLog(@"设备重连");
     }];
