@@ -889,8 +889,8 @@
     NSLog(@"pm25为： %d", pm25);
 
     //pm1
-    int hipm1 = (int)btData[10];
-    int lowpm1 = (int)btData[11];
+    int hipm1 = (int)btData[6];
+    int lowpm1 = (int)btData[7];
     int pm1 = hipm1*256+lowpm1;
     NSLog(@"pm1为： %d", pm1);
 
