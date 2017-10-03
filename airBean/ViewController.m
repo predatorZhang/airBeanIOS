@@ -385,26 +385,29 @@
     
     [curMidCircle.layer addAnimation:rightToMidGroup forKey:@"midToRightCircle"];
     [curMidLabel.layer addAnimation:rightToMidGroup forKey:@"midToRightLabel"];
-
+    
 }
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    if([curRightCircle.layer animationForKey:@"rightToMidCircle"] == anim) {
-        [curRightCircle setBorderWidth:kScreen_Width/25];
-//        [curRightCircle mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.size.mas_equalTo(CGSizeMake(kScreen_Width/3.0, kScreen_Width/3.0));
-//        }];
-    }else if ([curRightLabel.layer animationForKey:@"rightToMidLabel"] == anim){
-        
-    }else if ([curMidCircle.layer animationForKey:@"midToRightCircle"] == anim){
-        [curMidCircle setBorderWidth:kScreen_Width/25];
-//        [curMidCircle mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.size.mas_equalTo(CGSizeMake(kScreen_Width/2.0, kScreen_Width/2.0));
-//        }];
-        
-    }else if ([curMidLabel.layer animationForKey:@"midToRightLabel"] == anim){
-        
-    }
+    [curMidCircle setBorderWidth:kScreen_Width/25];
+    [curLeftCircle setBorderWidth:kScreen_Width/25];
+    [curRightCircle setBorderWidth:kScreen_Width/25];
+//    if([curRightCircle.layer animationForKey:@"rightToMidCircle"] == anim) {
+//        [curRightCircle setBorderWidth:kScreen_Width/25];
+////        [curRightCircle mas_makeConstraints:^(MASConstraintMaker *make) {
+////            make.size.mas_equalTo(CGSizeMake(kScreen_Width/3.0, kScreen_Width/3.0));
+////        }];
+//    }else if ([curRightLabel.layer animationForKey:@"rightToMidLabel"] == anim){
+//        
+//    }else if ([curMidCircle.layer animationForKey:@"midToRightCircle"] == anim){
+//        [curMidCircle setBorderWidth:kScreen_Width/25];
+////        [curMidCircle mas_makeConstraints:^(MASConstraintMaker *make) {
+////            make.size.mas_equalTo(CGSizeMake(kScreen_Width/2.0, kScreen_Width/2.0));
+////        }];
+//        
+//    }else if ([curMidLabel.layer animationForKey:@"midToRightLabel"] == anim){
+//        
+//    }
 }
 
 -(void) initUI{
