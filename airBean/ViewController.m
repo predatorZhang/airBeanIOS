@@ -28,6 +28,7 @@
     UILabel *curMidLabel;
     UILabel *curRightLabel;
     bool rightScaleFlag;
+    bool isConnected;
 }
 @end
 
@@ -148,8 +149,10 @@
 
 #pragma mark - 初始化ui
 -(void)scanDev:(id)tap{
-    baby.scanForPeripherals().connectToPeripherals().begin().stop(10);
-    [SVProgressHUD show];
+    if(!isConnected){
+        baby.scanForPeripherals().connectToPeripherals().begin().stop(10);
+        [SVProgressHUD show];
+    }
 }
 
 #pragma mark - 截屏分享
@@ -207,7 +210,13 @@
     
     //调用截屏
     NSData* imageData = [self dataWithScreenshotInPNGFormat];
+    
     UIImage * shareImage = [UIImage imageWithData:imageData];
+    
+    NSData *compressedData = UIImageJPEGRepresentation(shareImage, 0.001);
+
+    UIImage * comPressedShareImage = [UIImage imageWithData:compressedData];
+    
     //1、创建分享参数
     //NSArray* imageArray = @[[UIImage imageNamed:@"bg_hch0.png"]];
     if (shareImage) {
@@ -218,7 +227,7 @@
 //                                            title:@"分享标题"
 //                                            type:SSDKContentTypeImage];
         [shareParams SSDKSetupShareParamsByText:@"海牛钛氪"
-                                         images:shareImage
+                                         images:comPressedShareImage
                                             url:nil
                                            title:nil
                                            type:SSDKContentTypeImage];
@@ -1033,6 +1042,7 @@
     //断开连接
     [baby setBlockOnCancelAllPeripheralsConnectionBlock:^(CBCentralManager *centralManager) {
         NSLog(@"断开连接：setBlockOnCancelAllPeripheralsConnectionBlock");
+        isConnected=false;
         UIImage* connectImage=[UIImage imageNamed:@"dv_disconnected"];
         weakSelf.connImageView.image = connectImage;
         [weakLeftCircle setBorderColor:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6]];
@@ -1056,6 +1066,7 @@
         //停止扫描
         [SVProgressHUD showInfoWithStatus:@"连接成功"];
         UIImage* connectImage=[UIImage imageNamed:@"dv_connected"];
+        isConnected = true;
         weakSelf.connImageView.image = connectImage;
         NSLog(@"设备：%@--连接成功",peripheral.name);
         if(weakSelf.currPeripheral!=nil){

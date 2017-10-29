@@ -13,5 +13,19 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[ViewController share:]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "compressedData.size">
+            </PersistentString>
+            <PersistentString
+               value = "shareImage.size">
+            </PersistentString>
+            <PersistentString
+               value = "comPressedShareImage.size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>
