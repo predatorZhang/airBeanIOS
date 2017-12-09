@@ -138,7 +138,11 @@
                  NSLog(@"下载完成");
              }];
              
+             /*
             _weatherLabel.text = [NSString stringWithFormat:@"%@ 空气质量:%@ 温度:%@\n湿度:%@%% PM2.5:%@ PM10:%@\n时间:%@",city0[0],qlt[0],tmp[0],hum[0],pm25[0],pm10[0],time[0]];
+              **/
+             
+             _weatherLabel.text = [NSString stringWithFormat:@"%@  空气质量:%@  %@\n\n温度:%@˚C  湿度:%@%%  PM2.5:%@  PM10:%@",city0[0],qlt[0],time[0],tmp[0],hum[0],pm25[0],pm10[0]];
              _weatherLabel.hidden=NO;
              _curCity = city0[0];
 
@@ -545,6 +549,8 @@
     _shareImageView.image = shareImage;
     [_shareView addSubview:_shareImageView];
     UITapGestureRecognizer* shareTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(share:)];
+    shareTap.numberOfTouchesRequired = 1; //手指数
+    shareTap.numberOfTapsRequired = 1; //tap次数
     [_shareView addGestureRecognizer:shareTap];
     [_shareImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_shareView.mas_centerX);
