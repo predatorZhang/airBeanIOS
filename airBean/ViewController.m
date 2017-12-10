@@ -862,9 +862,11 @@
     int lowpm10 = (int)btData[11];
     int pm10 = hipm10*256+lowpm10;
     NSLog(@"pm10为： %d", pm10);
-    
     if(pm10<150){//优
-         [_leftCircle setBorderColor:[UIColor greenColor]];
+        float red = (float) (255 * (pm10/150.0));
+        float green = 255 - red;
+        [_leftCircle setBorderColor:[UIColor colorWithRed:red/255.0f green:green/255.0f blue:0 alpha:0.5]];
+         //[_leftCircle setBorderColor:[UIColor greenColor]];
           _pm10Label.text= [NSString stringWithFormat:@"PM10: %d\n ug/m3",pm10];
         }else{//良
          [_leftCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
@@ -875,29 +877,37 @@
     int hipm25 = (int)btData[8];
     int lowpm25 = (int)btData[9];
     int pm25 = hipm25*256+lowpm25;
+    if(pm25<250){
+        float red = 255 * (pm25 / 250);
+        float green = 255 -  red;
+        [_rightCircle setBorderColor:[UIColor colorWithRed:red/255.0f green:green/255.0f blue:0 alpha:0.5]];
+    }else{
+        [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+    }
+    
     if(pm25<35){
         //优
-        [_rightCircle setBorderColor:[UIColor greenColor]];
+        //[_rightCircle setBorderColor:[UIColor greenColor]];
         _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n优",pm25];
     }else if(pm25>=35 &&pm25<75){
         //良
-        [_rightCircle setBorderColor:[UIColor blueColor]];
+       // [_rightCircle setBorderColor:[UIColor blueColor]];
         _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n良",pm25];
     }else if(pm25>=75 &&pm25<115){
         //轻度污染
-        [_rightCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
+        //[_rightCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
         _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n轻度污染",pm25];
     }else if(pm25>=115 && pm25<150){
         //中度污染
-        [_rightCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
+        //[_rightCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
         _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n中度污染",pm25];
     }else if(pm25>=150 && pm25<250){
         //重度污染
-        [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+        //[_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
         _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n重度污染",pm25];
     }else{
         //严重污染
-        [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
+       // [_rightCircle setBorderColor:[UIColor colorWithRed:255.0f/255.0f green:0 blue:0 alpha:0.5]];
         _pm25Label.text= [NSString stringWithFormat:@"PM2.5: %d\n严重污染",pm25];
     }
         
@@ -915,17 +925,22 @@
     float tmp = (float)((hiHCHO*256+lowHCHO)/1000.0);
     NSString *strHCHO = [NSString stringWithFormat:@"%.3f",tmp];
     NSLog(@"hcho为： %@", strHCHO);
+    float hcho = [strHCHO floatValue];
     if(tmp<0.1){
         //正常
         [_midCircle setBorderColor:[UIColor greenColor]];
         _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n 正常",strHCHO];
     }else if(tmp>=0.1&&tmp<0.5){
-        //轻度污染
-        [_midCircle setBorderColor:[UIColor colorWithRed:50.0f/255.0f green:0 blue:0 alpha:0.5]];
+        
+        float red = (float) (127.0 * (hcho/0.5));
+        float green = 255 - red;
+        [_midCircle setBorderColor:[UIColor colorWithRed:red/255.0f green:green/255.0 blue:0 alpha:0.5]];
         _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n 轻度污染",strHCHO];
     }else if(tmp>=0.5&&tmp<0.6){
         //污染
-        [_midCircle setBorderColor:[UIColor colorWithRed:100.0f/255.0f green:0 blue:0 alpha:0.5]];
+        float red = (float) (175.0 * (hcho/0.6));
+        float green = 255 - red;
+        [_midCircle setBorderColor:[UIColor colorWithRed:red/255.0f green:green/255.0f blue:0 alpha:0.5]];
         _ch2oLabel.text= [NSString stringWithFormat:@" 甲醛\n %@\n 污染",strHCHO];
     }else {
         //重度污染
@@ -947,9 +962,9 @@
     }else if(cell<=60 && cell>50){
         cellImage=[UIImage imageNamed:@"ic_battery_half"];
         
-    }else if(cell<=50 && cell>20){
+    }else if(cell<=50 && cell>10){
         cellImage=[UIImage imageNamed:@"ic_battery_14"];
-    }else if(cell<=20){
+    }else if(cell<=10){
         cellImage=[UIImage imageNamed:@"ic_battery_low"];
     }
     if(cellImage!=nil){
