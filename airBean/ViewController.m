@@ -141,8 +141,11 @@
              /*
             _weatherLabel.text = [NSString stringWithFormat:@"%@ 空气质量:%@ 温度:%@\n湿度:%@%% PM2.5:%@ PM10:%@\n时间:%@",city0[0],qlt[0],tmp[0],hum[0],pm25[0],pm10[0],time[0]];
               **/
-             
+             _weatherLabel.font = [UIFont systemFontOfSize:11.5];
              _weatherLabel.text = [NSString stringWithFormat:@"%@  空气质量:%@  %@\n\n温度:%@˚C  湿度:%@%%  PM2.5:%@  PM10:%@",city0[0],qlt[0],time[0],tmp[0],hum[0],pm25[0],pm10[0]];
+             /*
+              _weatherLabel.text = [NSString stringWithFormat:@"%@  空气质量:%@  %@\n\n温度:%@˚C  湿度:%@%%  PM2.5:%@  PM10:%@",@"五路默契",@"重度污染",time[0],@"99",hum[0],@"500",@"500"];
+              **/
              _weatherLabel.hidden=NO;
              _curCity = city0[0];
 
