@@ -41,7 +41,7 @@
 
 //和风天气api
 #define heFengAPI @"https://free-api.heweather.com/v5/weather"
-#define imagePath2 @"http://files.heweather.com/cond_icon/"
+#define imagePath2 @"http://cdn.heweather.com/cond_icon/"
 #define heFengKey @"edeabc98d08844fd801d4b9b967b6c48"
 #endif /* babyBean_Prefix_pch */
 
